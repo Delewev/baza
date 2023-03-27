@@ -4,6 +4,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Admin\Post\IndexController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -19,9 +20,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
 Route::get('/posts', [PostController::class, 'index'])->name('post.index');
 Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
 Route::post('/posts', [PostController::class, 'store'])->name('post.store');
@@ -33,13 +33,13 @@ Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('post.d
 Route::get('/categories', [CategoryController::class, 'index'])->name('category.index');
 Route::post('/categories', [CategoryController::class, 'create'])->name('category.create');
 
-Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin'], function (){
+Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 'middleware' => 'admin' ], function (){
     Route::group(['namespace' => 'Post'], function (){
         Route::get('/post', 'IndexController')->name('admin.posts.index');
     });
 });
 
-//Route::get('admin/post', [IndexController::class, 'index'])->name('admin.post.index');
+
 
 
 Route::get('/main', [MainController::class, 'index'])->name('main.index');

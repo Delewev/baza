@@ -13,43 +13,41 @@ use Illuminate\Support\Facades\Request;
 
 class PostController extends BaseController
 {
-    public function index(FilterRequest $request)
+    public function index()
     {
-        $data = $request->validated();
-//        $filter = app()->make(PostFilter::class, ['queryParams' => array_filter($data)]);
-//        $posts = Post::filter($filter)->get();
-//         dd($posts);
+//        $this->authorize('view', auth()->user());
         $posts = Post::all();
-        return view('Post.index', compact('posts'));
+        return view('admin.post.index', compact('posts'));
     }
 
     public function create(Request $request)
     {
         $categories = Category::all();
-        return view('Post.create', compact('categories'));
+        return view('admin.post.create', compact('categories'));
 
     }
 
     public function store(PostStoreRequest $request)
     {
+
         $data = $request->validated();
         $this->service->store($data);
         return redirect()->route('post.index');
     }
 
     public function show(Post $post){
-        return view('post.show', compact('post'));
+        return view('admin.post.show', compact('post'));
     }
 
     public function edit(Post $post){
         $categories = Category::all();
-        return view('Post.edit', compact('post', 'categories'));
+        return view('admin.post.edit', compact('post', 'categories'));
     }
 
     public function update(PostStoreRequest $request, Post $post){
         $data = $request->validated();
         $post->update($data);
-        return redirect()->route('post.show', $post->id);
+        return redirect()->route('admin.post.show', $post->id);
     }
 
     public function destroy(Post $post){

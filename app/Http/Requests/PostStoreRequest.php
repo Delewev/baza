@@ -27,6 +27,7 @@ class PostStoreRequest extends FormRequest
             'title' => 'required|string',
             'content' => 'string',
             'image' => 'string',
+            'likes' => 'string',
             'category_id' => '',
         ];
     }

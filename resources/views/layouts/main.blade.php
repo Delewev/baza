@@ -15,11 +15,15 @@
             <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
+
                         <a class="nav-link active" aria-current="page" href="{{route('main.index')}}">Main</a>
                         <a class="nav-link" href="{{route('contact.index')}}">Contact</a>
                         <a class="nav-link" href="{{route('about.index')}}">About</a>
                         <a class="nav-link" href="{{route('post.index')}}">Posts</a>
                         <a class="nav-link" href="{{route('category.index')}}">Categories</a>
+                        @can('view', auth()->user())
+                        <a class="nav-link" href="{{route('admin.posts.index')}}">admin</a>
+                        @endcan
                     </div>
                 </div>
             </div>

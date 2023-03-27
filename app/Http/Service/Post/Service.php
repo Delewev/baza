@@ -8,7 +8,7 @@ class Service
 {
     public function store($data)
     {
-        Post::create($data);
+       Post::create($data);
     }
 
 }
